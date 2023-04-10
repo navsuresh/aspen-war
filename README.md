@@ -24,13 +24,15 @@ The two requested endpoints are avaible at the following routes:
   Here, the number of wins by player 1 is indicated by "player1" and the number of wins by player 2 is indicated by "player2".
   
 
-***Local Run Instructions
+### Local Run Instructions
 To run locally, please set up a local MySQL installation. Export the MYSQL_USER and MYSQL_PWD variables as per your local installation. Then, log into the mysql installation (using ``` mysql -u <MYSQL_USER> -p ```), and run ``` source init_db.sql ``` to initialize the required database tables.
 
 Also, install [flask](https://flask.palletsprojects.com/en/2.2.x/installation/) and the [MySQL connector](https://www.w3schools.com/python/python_mysql_getstarted.asp).
 
 Then, run ``` flask --app war run ```, which will bring up a local server on port 5000. You can send requests to http://localhost:5000
 
+
+### Reflection on Assignment
 I had quite an interesting experience with the implementation of the game. In particular, I spent quite some time analyzing the results of the game before realizing that War is not guaranteed to have an end. The game can theoretically proceed forever given the right distribution of cards. Hence, based on [this](https://boardgames.stackexchange.com/questions/44275/what-is-the-expected-duration-of-a-game-of-war), I have limited the upper number of turns to 5000. In case we cross this threshold, we deem a tie and restart the game until we have a result.
 
 I have included a test set that sends a 100 run-game requests, and then verifies the game-histroy at the end (can be run by running the program as ``` python war.py ```
