@@ -1,7 +1,7 @@
 from enum import Enum
 from random import shuffle
 from collections import deque
-
+import os
 from flask import Flask
 
 import mysql.connector
@@ -18,7 +18,8 @@ def run_war():
 
     mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
+    user=os.environ.get('MYSQL_USER'),
+    password=os.environ.get('MYSQL_PWD'),
     database="war"
     )
     mycursor = mydb.cursor()
@@ -40,7 +41,8 @@ def war_history():
 
     mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
+     user=os.environ.get('MYSQL_USER'),
+    password=os.environ.get('MYSQL_PWD'),
     database="war"
     )
     mycursor = mydb.cursor()
@@ -54,7 +56,8 @@ def war_history():
 def clear_db():
     mydb = mysql.connector.connect(
     host="localhost",
-    user="root",
+    user=os.environ.get('MYSQL_USER'),
+    password=os.environ.get('MYSQL_PWD'),
     database="war"
     )
     mycursor = mydb.cursor()
@@ -151,3 +154,4 @@ if __name__ == '__main__':
         res = run_war()
         results["player"+str(res["winner"])] += 1
     assert(war_history() ==  results)
+    print("TESTS PASSED!")
