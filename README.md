@@ -24,7 +24,7 @@ The two requested endpoints are avaible at the following routes:
   Here, the number of wins by player 1 is indicated by "player1" and the number of wins by player 2 is indicated by "player2".
   
 
-*** Local Run Instructions
+***Local Run Instructions
 To run locally, please set up a local MySQL installation. Export the MYSQL_USER and MYSQL_PWD variables as per your local installation. Then, log into the mysql installation (using ``` mysql -u <MYSQL_USER> -p ```), and run ``` source init_db.sql ``` to initialize the required database tables.
 
 Also, install [flask](https://flask.palletsprojects.com/en/2.2.x/installation/) and the [MySQL connector](https://www.w3schools.com/python/python_mysql_getstarted.asp).
