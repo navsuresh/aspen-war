@@ -38,7 +38,7 @@ I had quite an interesting experience with the implementation of the game. In pa
 I have included a test set that sends a 100 run-game requests, and then verifies the game-histroy at the end (can be run by running the program as ``` python war.py ```
 
 
-Given more time, I would have tried to implement a more generalized solution that makes it easy to add more players to the game without much modification to the code. I would have also created a Docker image that couples the MySQL and Flask dependencies into one image, and deployed the image using a more elaborate container orchestration method, such as using Kubernetes. 
+Given more time, I would have tried to implement a more generalized solution that makes it easy to add more players to the game without much modification to the code. I would have also created a Docker image that couples the MySQL and Flask dependencies into one image, and deployed the image using a more elaborate container orchestration method, such as using Kubernetes. I would have also used a more reliable, production-grade web-server (such as Apache/Nginx), rather than the dev server that Flask brings up.
 
 
 
