@@ -96,7 +96,7 @@ class Card:
         self.value = value
     def disp(self) -> None:
         # print('<%i>' %(self.value.value), end = " ")
-        print('<%s, %i>' %(self.suit.name, self.value.value), end = " ")
+        print('<%s, %s>' %(self.suit.name, self.value.name), end = " ")
 class War:
     def __init__(self) -> None:
         self.deck = [Card(suit, value) for suit in [Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS, Suit.SPADES] for value in [Value.Two, Value.Three, Value.Four, Value.Five, Value.Six, Value.Seven, Value.Eight, Value.Nine, Value.Ten, Value.Jack, Value.Queen, Value.King, Value.Ace]]
@@ -173,4 +173,5 @@ if __name__ == '__main__':
             res = run_war()
             results["player"+str(res["winner"])] += 1
         assert(war_history() ==  results)
+        clear_db()
         print("TESTS PASSED!")
