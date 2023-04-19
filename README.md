@@ -1,6 +1,8 @@
 # aspen-war
 Take home assignment for Aspen Capital SWE Intern
 
+[Slide Deck with Summary](https://docs.google.com/presentation/d/11Y5qw-r474YOa8p7ATsy-tiG8JjTFZDsxNpDX-a5sbQ/edit?usp=sharing)
+
 
 Hello! Thank you for reviewing my submission for the take-home assignment for the SWE internship position at Aspen Capital. I have implemented the game of War in Python, using Flask as a web server for hosting the API endpoints and a MySQL database for persisting the results of the games. I have also deployed this on an AWS EC2 instance, which can be accessed at http://ec2-34-227-58-248.compute-1.amazonaws.com:5000
 
