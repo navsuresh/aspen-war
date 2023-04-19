@@ -3,6 +3,8 @@ from random import shuffle
 from collections import deque
 import os
 from flask import Flask
+import argparse
+
 
 import mysql.connector
 
@@ -41,7 +43,7 @@ def war_history():
 
     mydb = mysql.connector.connect(
     host="localhost",
-     user=os.environ.get('MYSQL_USER'),
+    user=os.environ.get('MYSQL_USER'),
     password=os.environ.get('MYSQL_PWD'),
     database="war"
     )
@@ -93,8 +95,8 @@ class Card:
         self.suit = suit
         self.value = value
     def disp(self) -> None:
-        print('<%i>' %(self.value.value), end = " ")
-        # print('<%s, %i>' %(self.suit.name, self.value), end = " ")
+        # print('<%i>' %(self.value.value), end = " ")
+        print('<%s, %i>' %(self.suit.name, self.value.value), end = " ")
 class War:
     def __init__(self) -> None:
         self.deck = [Card(suit, value) for suit in [Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS, Suit.SPADES] for value in [Value.Two, Value.Three, Value.Four, Value.Five, Value.Six, Value.Seven, Value.Eight, Value.Nine, Value.Ten, Value.Jack, Value.Queen, Value.King, Value.Ace]]
@@ -115,12 +117,12 @@ class War:
         elif len(self.player2_hand) == 0:
             self.result = 1
         
-    def play_game(self) -> bool:
+    def play_game(self, verbose = False) -> bool:
         while(True):
             self.__deal_cards()
             n_turns = 0
             while(self.result == 0 and n_turns < MAX_TURNS):
-                n_turns +=1
+                n_turns += 1
                 current_pool = []
                 current_pool.append(self.player1_hand.pop())
                 current_pool.append(self.player2_hand.pop())
@@ -140,6 +142,13 @@ class War:
                         self.player1_hand.extendleft(current_pool)
                     elif current_pool[-2].value.value < current_pool[-1].value.value:
                         self.player2_hand.extendleft(current_pool)
+                if verbose:
+                    print("\nPlayer 1:", end = " ")
+                    for card in self.player1_hand:
+                        card.disp()
+                    print("\nPlayer 2:", end = " ")
+                    for card in self.player2_hand:
+                        card.disp()
                 self.__game_eval()
             if n_turns == MAX_TURNS:    # if game is too long, restart
                 continue
@@ -147,11 +156,21 @@ class War:
 
 
 if __name__ == '__main__':
-    war = War()
-    results = {'player1': 0, 'player2':0}
-    clear_db()
-    for i in range(100):
-        res = run_war()
-        results["player"+str(res["winner"])] += 1
-    assert(war_history() ==  results)
-    print("TESTS PASSED!")
+    parser = argparse.ArgumentParser(description="Naveen's War Implementation",
+                                 formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-v", "--verbose", action="store_true", help="Print hands after every move for one game")
+    args = parser.parse_args()
+    config = vars(args)
+
+    if config['verbose']:
+        war = War()
+        resp = war.play_game(True)
+        print("Player", resp[0], "wins in", resp[1], "moves!")
+    else:
+        results = {'player1': 0, 'player2':0}
+        clear_db()
+        for i in range(100):
+            res = run_war()
+            results["player"+str(res["winner"])] += 1
+        assert(war_history() ==  results)
+        print("TESTS PASSED!")
